@@ -1,0 +1,26 @@
+# Netlify configuration — Sirnaaz by Mehar
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# /api/* is handled by netlify/functions/api.mts (declared in the function's own config).
+# Every other path is the single-page app.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Local development: `npm run dev` (= netlify dev) runs Vite + the API function together on http://localhost:8888
+[dev]
+  framework = "#custom"
+  command = "vite"
+  targetPort = 5173
+  port = 8888
+  autoLaunch = false
