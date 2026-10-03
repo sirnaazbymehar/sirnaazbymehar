@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root { color-scheme: light; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-ivory font-sans text-ink antialiased;
+    font-weight: 400;
+    overflow-x: hidden;
+  }
+  h1, h2, h3 { text-wrap: balance; }
+  ::selection { background: #EADBC0; color: #3E0F1C; }
+  :focus-visible { outline: 1.5px solid #A8834A; outline-offset: 2px; }
+}
+
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-[1320px] px-4 sm:px-6 lg:px-10; }
+
+  .btn { @apply inline-flex min-h-[48px] items-center justify-center gap-2 px-7 text-[12px] font-medium uppercase tracking-label transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-45; }
+  .btn-primary { @apply btn bg-wine text-ivory hover:bg-wine-deep active:scale-[.99]; }
+  .btn-gold { @apply btn bg-gold-pale text-wine-deep hover:bg-gold-soft; }
+  .btn-outline { @apply btn border border-ink/70 text-ink hover:bg-ink hover:text-ivory; }
+  .btn-outline-light { @apply btn border border-ivory/70 text-ivory hover:bg-ivory hover:text-wine-deep; }
+
+  .link-u { @apply relative after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100; }
+
+  .field { @apply flex flex-col gap-1.5; }
+  .field label { @apply text-[11px] uppercase tracking-label text-ink-soft; }
+  .input { @apply h-12 w-full border border-line bg-white/70 px-3.5 text-[15px] text-ink outline-none transition-colors placeholder:text-ink-muted/70 focus:border-gold; }
+  .input-error { @apply border-wine-soft; }
+
+  .chip { @apply inline-flex h-11 min-w-[48px] items-center justify-center border px-3 text-[13px] tracking-wide transition-colors; }
+}
+
+/* Gentle scroll reveal where supported; content is fully visible otherwise. */
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 35%;
+  }
+  @keyframes reveal { from { transform: translateY(22px); } to { transform: none; } }
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  .reveal { animation: none !important; }
+}
